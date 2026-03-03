@@ -1,0 +1,29 @@
+{
+  "ignores": [
+    "@types/node",
+    "@types/react",
+    "@types/react-dom",
+    "@vitejs/plugin-react",
+    "vite",
+    "typescript",
+    "eslint",
+    "@eslint/js",
+    "eslint-plugin-react-hooks",
+    "eslint-plugin-react-refresh",
+    "typescript-eslint",
+    "globals"
+  ],
+  "skip-missing": false,
+  "ignore-dirs": [
+    "dist",
+    "build",
+    "node_modules",
+    ".vite"
+  ],
+  "ignore-patterns": [
+    "*.test.ts",
+    "*.test.tsx",
+    "*.spec.ts",
+    "*.spec.tsx"
+  ]
+}
