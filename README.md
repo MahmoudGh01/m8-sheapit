@@ -1,30 +1,38 @@
-# 📦 Sheapit: Logistics Reimagined
+# 🎬 Sheapit Movies
 
-**Sheapit** is a modern logistics management platform built with React, TypeScript, and Vite. This application focuses on streamlining supply chain tracking through a clean, component-based user interface.
+**Sheapit Movies** is a movies and TV shows content explorer built with React, TypeScript, and Vite. Browse, discover, and track your favorite movies and TV shows with an intuitive, modern interface.
 
 ---
 
-## 🚀 Proposed Features
+## 📝 Project Description
 
-### 1. Real-Time Shipment Tracking
+A personal project to explore and manage movies and TV shows. Users can browse content, search for titles, filter by categories, and maintain a collection of favorites. This application demonstrates modern React patterns, TypeScript usage, and component-based architecture.
 
-- **Live Map View:** Integration with mapping APIs to visualize package movement in real-time.
-- **Status Timeline:** A vertical stepper component showing the package journey from "Warehouse" to "Delivered."
+## ✨ Potential Features
 
-### 2. Fleet Management Dashboard
+### Core Features (Phase 1)
 
-- **Driver Cards:** Reusable UI components displaying driver availability, current load, and performance ratings.
-- **Vehicle Health Alerts:** Automated visual flags for maintenance based on mileage and diagnostic data.
+- **Browse Content**: View a collection of movies and TV shows
+- **Search Functionality**: Find content by title
+- **Filter & Sort**: Filter by genre, year, rating; sort by various criteria
+- **Detail View**: See comprehensive information about each title
+- **Favorites**: Save and manage favorite movies and TV shows
 
-### 3. Inventory & Warehousing
+### Enhanced Features (Phase 2)
 
-- **QR/Barcode Scanner:** Mobile-friendly interface for checking items into the hub using the device camera.
-- **Low-Stock Notifications:** Declarative UI warnings when specific SKU levels drop below a set threshold.
+- **Watch History**: Track watched content with timestamps
+- **Ratings**: Rate movies and shows personally
+- **Collections**: Create custom collections (e.g., "To Watch", "Classics")
+- **Recommendations**: Get personalized recommendations based on favorites
+- **Statistics**: View viewing statistics and insights
 
-### 4. Client Portal
+### Advanced Features (Phase 3)
 
-- **Proof of Delivery (PoD):** Digital signature capture and photo upload functionality for completed deliveries.
-- **Cost Calculator:** Dynamic forms to estimate shipping rates based on weight, dimensions, and destination.
+- **External API Integration**: Connect to TMDB or similar APIs for real data
+- **User Authentication**: Save preferences across devices
+- **Social Features**: Share favorites and reviews
+- **Advanced Search**: Multi-criteria search with filters
+- **Dark/Light Theme**: Toggle between themes with preference persistence
 
 ---
 
@@ -88,7 +96,10 @@ npm run lint
 m8-sheapit/
 ├── public/             # Static assets
 ├── src/
-│   ├── assets/         # Images, fonts, and other assets
+│   ├── components/     # React components
+│   ├── utils/          # Utility functions and helpers
+│   ├── types/          # TypeScript type definitions
+│   ├── data/           # Mock data and constants
 │   ├── App.tsx         # Main application component
 │   ├── App.css         # Application styles
 │   ├── main.tsx        # Application entry point
@@ -96,8 +107,6 @@ m8-sheapit/
 ├── index.html          # HTML template
 ├── package.json        # Dependencies and scripts
 ├── tsconfig.json       # TypeScript configuration
-├── tsconfig.app.json   # App-specific TypeScript config
-├── tsconfig.node.json  # Node-specific TypeScript config
 ├── vite.config.ts      # Vite configuration
 └── eslint.config.js    # ESLint configuration
 ```
@@ -211,16 +220,35 @@ The project requires Node.js 18 or higher.
 
 ## Roadmap
 
-- [ ] Set up routing with React Router
-- [ ] Implement authentication and authorization
-- [ ] Add state management (Context API or external library)
-- [ ] Integrate mapping APIs for shipment tracking
-- [ ] Build fleet management components
-- [ ] Create inventory management system
-- [ ] Develop client portal features
-- [ ] Add unit and integration tests
-- [ ] Implement CI/CD pipeline
-- [ ] Add comprehensive documentation
+### Phase 1: Core View (Current)
+
+- [x] Project setup with Vite, TypeScript, React
+- [x] Linting tooling (ESLint, Prettier, Depcheck)
+- [ ] Core view with multiple components
+- [ ] Browse movies and TV shows
+- [ ] Search functionality
+- [ ] Basic filtering
+
+### Phase 2: Enhanced UI
+
+- [ ] Detailed view for individual content
+- [ ] Favorites management
+- [ ] Improved styling and layout
+- [ ] Responsive design
+
+### Phase 3: Data & Persistence
+
+- [ ] External API integration
+- [ ] Local storage for favorites
+- [ ] User preferences
+- [ ] Advanced filtering and sorting
+
+### Phase 4: Advanced Features
+
+- [ ] User authentication
+- [ ] Collections and lists
+- [ ] Recommendations engine
+- [ ] Statistics and insights
 
 ## License
 
