@@ -8,7 +8,7 @@ import { Home } from './pages/Home';
 function App(): React.JSX.Element {
   return (
     <MovieProvider>
-      <BrowserRouter>
+      <BrowserRouter basename="/m8-sheapit">
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
