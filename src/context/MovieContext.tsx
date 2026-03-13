@@ -4,10 +4,10 @@ import { mockMovies } from '../data/movies';
 import { type Movie } from '../types/movie';
 import { toggleFavorite as toggleFavoriteUtil } from '../utils/movieUtils';
 
-interface MovieContextType {
+type MovieContextType = {
   movies: Movie[];
   toggleFavorite: (id: number) => void;
-}
+};
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined);
 
