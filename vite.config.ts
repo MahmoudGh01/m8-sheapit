@@ -5,4 +5,9 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   base: '/m8-sheapit/',
+  resolve: {
+  alias: {
+    '@': path.resolve(__dirname, './src'),
+  },
+},
 });
