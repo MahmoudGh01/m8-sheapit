@@ -2,11 +2,13 @@ import { Heart, Film, TrendingUp } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 
-import { MovieList } from '../components/MovieList';
-import { SearchBar } from '../components/SearchBar';
-import { useMovies } from '../context/MovieContext';
-import { type SortOption } from '../types/movie';
-import { sortMovies } from '../utils/movieUtils';
+import {
+  MovieList,
+  SearchBar,
+  useMovies,
+  sortMovies,
+  type SortOption,
+} from '../../features/movies';
 
 export function Favorites(): React.JSX.Element {
   // Get shared movie state with loading and error states

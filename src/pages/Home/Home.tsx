@@ -1,16 +1,17 @@
 import { ChevronDown, Sparkles } from 'lucide-react';
 import { useState, useMemo } from 'react';
 
-import { FilterControls } from '../components/FilterControls';
-import { MovieList } from '../components/MovieList';
-import { SearchBar } from '../components/SearchBar';
-import { useMovies } from '../context/MovieContext';
-import { type SortOption, type FilterGenre } from '../types/movie';
 import {
+  FilterControls,
+  MovieList,
+  SearchBar,
+  useMovies,
   filterMovies,
   sortMovies,
   getFavoriteCount,
-} from '../utils/movieUtils';
+  type SortOption,
+  type FilterGenre,
+} from '../../features/movies';
 
 export function Home(): React.JSX.Element {
   // Get shared movie state with loading and error states

@@ -1,6 +1,6 @@
 import { describe, it } from 'vitest';
 
-import { renderWithProviders } from '../test/testUtils';
+import { renderWithProviders } from '../../shared/test/testUtils';
 
 import { Home } from './Home';
 
