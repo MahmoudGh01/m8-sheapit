@@ -4,26 +4,22 @@ import { ChevronDown, Sparkles } from 'lucide-react';
 import { FilterControls } from '../components/FilterControls';
 import { MovieList } from '../components/MovieList';
 import { SearchBar } from '../components/SearchBar';
-import { mockMovies } from '../data/movies';
+import { useMovies } from '../context/MovieContext';
 import { type SortOption, type FilterGenre } from '../types/movie';
 import {
   filterMovies,
   sortMovies,
   getFavoriteCount,
-  toggleFavorite,
 } from '../utils/movieUtils';
 
 export function Home(): React.JSX.Element {
-  // State management
-  const [movies, setMovies] = useState(mockMovies);
+  // Get shared movie state
+  const { movies, toggleFavorite } = useMovies();
+
+  // Local state for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('title');
   const [genre, setGenre] = useState<FilterGenre>('all');
-
-  // Handle favorite toggle
-  const handleToggleFavorite = (id: number): void => {
-    setMovies((prevMovies) => toggleFavorite(prevMovies, id));
-  };
 
   // Memoized filtered and sorted movies
   const displayedMovies = useMemo(() => {
@@ -138,7 +134,7 @@ export function Home(): React.JSX.Element {
           </div>
           <MovieList
             movies={displayedMovies}
-            onToggleFavorite={handleToggleFavorite}
+            onToggleFavorite={toggleFavorite}
           />
         </div>
       </main>

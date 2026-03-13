@@ -1,22 +1,20 @@
 import { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Heart, Film, TrendingUp } from 'lucide-react';
 
 import { MovieList } from '../components/MovieList';
 import { SearchBar } from '../components/SearchBar';
-import { mockMovies } from '../data/movies';
+import { useMovies } from '../context/MovieContext';
 import { type SortOption } from '../types/movie';
-import { sortMovies, toggleFavorite } from '../utils/movieUtils';
+import { sortMovies } from '../utils/movieUtils';
 
 export function Favorites(): React.JSX.Element {
-  // State management
-  const [movies, setMovies] = useState(mockMovies);
+  // Get shared movie state
+  const { movies, toggleFavorite } = useMovies();
+
+  // Local state for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('title');
-
-  // Handle favorite toggle
-  const handleToggleFavorite = (id: number): void => {
-    setMovies((prevMovies) => toggleFavorite(prevMovies, id));
-  };
 
   // Get favorite movies
   const favoriteMovies = useMemo(() => {
@@ -118,12 +116,12 @@ export function Favorites(): React.JSX.Element {
               Start building your collection by adding movies to your favorites.
               Browse all movies and click the heart icon to save them here.
             </p>
-            <a
-              href="/"
+            <Link
+              to="/"
               className="px-8 py-4 bg-gradient-to-r from-red-600 to-pink-600 text-white font-bold rounded-xl hover:from-red-500 hover:to-pink-500 transition-all shadow-lg shadow-red-500/30"
             >
               Browse Movies
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="mb-12">
@@ -140,7 +138,7 @@ export function Favorites(): React.JSX.Element {
             </div>
             <MovieList
               movies={favoriteMovies}
-              onToggleFavorite={handleToggleFavorite}
+              onToggleFavorite={toggleFavorite}
             />
           </div>
         )}
