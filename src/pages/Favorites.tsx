@@ -9,8 +9,8 @@ import { type SortOption } from '../types/movie';
 import { sortMovies } from '../utils/movieUtils';
 
 export function Favorites(): React.JSX.Element {
-  // Get shared movie state
-  const { movies, toggleFavorite } = useMovies();
+  // Get shared movie state with loading and error states
+  const { movies, toggleFavorite, isLoading, isError } = useMovies();
 
   // Local state for filters
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,6 +31,41 @@ export function Favorites(): React.JSX.Element {
       : favorites;
     return sortMovies(filtered, sortBy);
   }, [movies, searchTerm, sortBy]);
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-[80vh]">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-red-600 mx-auto mb-4"></div>
+          <p className="text-xl text-gray-400">Loading your favorites...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (isError) {
+    return (
+      <div className="flex items-center justify-center h-[80vh]">
+        <div className="text-center max-w-md">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-bold mb-2">
+            Oops! Something went wrong
+          </h2>
+          <p className="text-gray-400 mb-6">
+            We couldn't load your favorites. Please try again later.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
