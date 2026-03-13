@@ -5,8 +5,8 @@
  * as outlined in the curriculum.
  */
 
-import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
 
 // ==============================================================================
 // 1. USING FETCH
@@ -21,24 +21,24 @@ import { useQuery } from '@tanstack/react-query';
  * - Need one layer of abstraction for async
  * - Store result in state
  */
-interface Data {
+type Data = {
   id: number;
   title: string;
-}
+};
 
-export const BasicFetchExample = () => {
+export const BasicFetchExample = (): React.JSX.Element => {
   const [data, setData] = useState<Data[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    async function getData() {
+    async function getData(): Promise<void> {
       setIsLoading(true);
       try {
         const response = await fetch('https://api.example.com/data');
         if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
-        setData(data);
+        const result: Data[] = (await response.json()) as Data[];
+        setData(result);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -46,7 +46,7 @@ export const BasicFetchExample = () => {
       }
     }
 
-    getData();
+    void getData();
   }, []);
 
   if (isLoading) return <div>Loading...</div>;
@@ -133,13 +133,13 @@ export const UseWithStateExample = () => {
  * 4. Waiting for response (loading)
  * 5. Waiting for new response (revalidating)
  */
-export const DataStatesExample = () => {
+export const DataStatesExample = (): React.JSX.Element => {
   const [data, setData] = useState<Data[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isRevalidating, setIsRevalidating] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = async (isRefetch = false) => {
+  const fetchData = async (isRefetch = false): Promise<void> => {
     if (isRefetch) {
       setIsRevalidating(true);
     } else {
@@ -148,8 +148,8 @@ export const DataStatesExample = () => {
 
     try {
       const response = await fetch('https://api.example.com/data');
-      const data = await response.json();
-      setData(data);
+      const result: Data[] = (await response.json()) as Data[];
+      setData(result);
       setError(null);
     } catch (err) {
       setError(err as Error);
@@ -160,7 +160,7 @@ export const DataStatesExample = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    void fetchData();
   }, []);
 
   // State 4: Waiting for initial response
@@ -174,7 +174,7 @@ export const DataStatesExample = () => {
       <div className="error-state">
         <h2>Error</h2>
         <p>{error.message}</p>
-        <button onClick={() => fetchData()}>Retry</button>
+        <button onClick={() => void fetchData()}>Retry</button>
       </div>
     );
   }
@@ -195,7 +195,7 @@ export const DataStatesExample = () => {
       {isRevalidating && (
         <div className="revalidating-indicator">Updating...</div>
       )}
-      <button onClick={() => fetchData(true)}>Refresh</button>
+      <button onClick={() => void fetchData(true)}>Refresh</button>
       {data.map((item) => (
         <div key={item.id}>{item.title}</div>
       ))}
@@ -250,18 +250,22 @@ export const fetchMovieById = async (id: number): Promise<Movie> => {
  */
 
 // Custom hook without TanStack Query
-export const useMoviesBasic = () => {
+export const useMoviesBasic = (): {
+  movies: Data[];
+  isLoading: boolean;
+  error: Error | null;
+} => {
   const [movies, setMovies] = useState<Data[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
-    const fetchMovies = async () => {
+    const fetchMovies = async (): Promise<void> => {
       setIsLoading(true);
       try {
         const response = await fetch('/api/movies');
-        const data = await response.json();
-        setMovies(data);
+        const result: Data[] = (await response.json()) as Data[];
+        setMovies(result);
       } catch (err) {
         setError(err as Error);
       } finally {
@@ -269,14 +273,14 @@ export const useMoviesBasic = () => {
       }
     };
 
-    fetchMovies();
+    void fetchMovies();
   }, []);
 
   return { movies, isLoading, error };
 };
 
 // Using the custom hook
-export const MoviesComponent = () => {
+export const MoviesComponent = (): React.JSX.Element => {
   const { movies, isLoading, error } = useMoviesBasic();
 
   if (isLoading) return <div>Loading...</div>;
@@ -310,25 +314,31 @@ export const MoviesComponent = () => {
  */
 
 // Hook using TanStack Query
-export const useMoviesTanStack = () => {
+export const useMoviesTanStack = (): ReturnType<typeof useQuery> => {
   return useQuery({
     queryKey: ['movies'],
     queryFn: async () => {
       const response = await fetch('/api/movies');
       if (!response.ok) throw new Error('Failed to fetch');
-      return response.json();
+      return (await response.json()) as Data[];
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 };
 
 // Using TanStack Query hook
-export const MoviesWithTanStack = () => {
+export const MoviesWithTanStack = (): React.JSX.Element => {
   const { data: movies, isLoading, isError, error } = useMoviesTanStack();
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
-  if (!movies || movies.length === 0) return <div>No movies</div>;
+  if (isError) {
+    const errorMessage =
+      error instanceof Error ? error.message : 'Unknown error';
+    return <div>Error: {errorMessage}</div>;
+  }
+  if (!movies || !Array.isArray(movies) || movies.length === 0) {
+    return <div>No movies</div>;
+  }
 
   return (
     <div>

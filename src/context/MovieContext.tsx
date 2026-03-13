@@ -33,7 +33,7 @@ export function MovieProvider({
 
   // Update local state when fetched data changes
   useEffect(() => {
-    if (fetchedMovies) {
+    if (fetchedMovies && Array.isArray(fetchedMovies)) {
       setMovies(fetchedMovies);
     }
   }, [fetchedMovies]);
@@ -49,7 +49,7 @@ export function MovieProvider({
         toggleFavorite,
         isLoading,
         isError,
-        error: error as Error | null,
+        error: error instanceof Error ? error : null,
       }}
     >
       {children}

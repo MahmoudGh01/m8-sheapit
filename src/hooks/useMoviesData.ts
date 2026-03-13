@@ -1,4 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+
 import {
   fetchMovies,
   fetchMovieById,
@@ -23,7 +24,7 @@ import {
  * - data: Success with data (or undefined if no data)
  * - isFetching: Waiting for new response (revalidating)
  */
-export const useMoviesData = () => {
+export const useMoviesData = (): ReturnType<typeof useQuery> => {
   return useQuery({
     queryKey: ['movies'],
     queryFn: fetchMovies,
@@ -37,7 +38,7 @@ export const useMoviesData = () => {
  *
  * @param id - Movie ID
  */
-export const useMovieData = (id: number) => {
+export const useMovieData = (id: number): ReturnType<typeof useQuery> => {
   return useQuery({
     queryKey: ['movie', id],
     queryFn: () => fetchMovieById(id),
@@ -50,7 +51,7 @@ export const useMovieData = (id: number) => {
  *
  * @param query - Search query
  */
-export const useMovieSearch = (query: string) => {
+export const useMovieSearch = (query: string): ReturnType<typeof useQuery> => {
   return useQuery({
     queryKey: ['movies', 'search', query],
     queryFn: () => searchMovies(query),
@@ -63,6 +64,7 @@ export const useMovieSearch = (query: string) => {
  * Example mutation hook (for future use when we have POST/PUT/DELETE endpoints)
  * This demonstrates how to handle mutations with TanStack Query
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const useToggleFavorite = () => {
   const queryClient = useQueryClient();
 
@@ -74,7 +76,7 @@ export const useToggleFavorite = () => {
     },
     onSuccess: () => {
       // Invalidate and refetch movies after mutation
-      queryClient.invalidateQueries({ queryKey: ['movies'] });
+      void queryClient.invalidateQueries({ queryKey: ['movies'] });
     },
   });
 };

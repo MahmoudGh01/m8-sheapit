@@ -1,5 +1,5 @@
-import { type Movie } from '../types/movie';
 import { mockMovies } from '../data/movies';
+import { type Movie } from '../types/movie';
 
 /**
  * Service layer for movie-related API calls
