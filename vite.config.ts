@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [react()],
   base: '/m8-sheapit/',
   resolve: {
-  alias: {
-    '@': path.resolve(__dirname, './src'),
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
   },
-},
 });
