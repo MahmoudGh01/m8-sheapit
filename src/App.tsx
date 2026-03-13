@@ -1,10 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { MovieProvider } from './context/MovieContext';
-import { Layout } from './layouts/Layout';
-import { Favorites } from './pages/Favorites';
-import { Home } from './pages/Home';
+import { MovieProvider } from './features/movies';
+import { Home, Favorites } from './pages';
+import { Layout } from './shared';
 
 // Create a client
 const queryClient = new QueryClient({
