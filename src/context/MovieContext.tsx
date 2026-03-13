@@ -1,12 +1,21 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+  useEffect,
+} from 'react';
 
-import { mockMovies } from '../data/movies';
+import { useMoviesData } from '../hooks/useMoviesData';
 import { type Movie } from '../types/movie';
 import { toggleFavorite as toggleFavoriteUtil } from '../utils/movieUtils';
 
 type MovieContextType = {
   movies: Movie[];
   toggleFavorite: (id: number) => void;
+  isLoading: boolean;
+  isError: boolean;
+  error: Error | null;
 };
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined);
@@ -16,14 +25,33 @@ export function MovieProvider({
 }: {
   children: ReactNode;
 }): React.JSX.Element {
-  const [movies, setMovies] = useState<Movie[]>(mockMovies);
+  // Use TanStack Query hook for data fetching
+  const { data: fetchedMovies, isLoading, isError, error } = useMoviesData();
+
+  // Local state for client-side mutations (like toggling favorites)
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  // Update local state when fetched data changes
+  useEffect(() => {
+    if (fetchedMovies) {
+      setMovies(fetchedMovies);
+    }
+  }, [fetchedMovies]);
 
   const toggleFavorite = (id: number): void => {
     setMovies((prevMovies) => toggleFavoriteUtil(prevMovies, id));
   };
 
   return (
-    <MovieContext.Provider value={{ movies, toggleFavorite }}>
+    <MovieContext.Provider
+      value={{
+        movies,
+        toggleFavorite,
+        isLoading,
+        isError,
+        error: error as Error | null,
+      }}
+    >
       {children}
     </MovieContext.Provider>
   );
