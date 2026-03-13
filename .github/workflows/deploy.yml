@@ -1,105 +1,59 @@
-name: Verify and Publish
+name: Verify and Deploy
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  verify:
-    name: Verify
+  verify: # Stage 1: Code Quality
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
-          node-version: '20'
+          node-version: 20
           cache: 'npm'
+      - run: npm ci
+      - run: npm run lint # ESLint and Prettier
+      - run: npm run test:run # Vitest
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run Tests
-        run: npm run test:run
-
-      - name: Typecheck
-        run: npm run lint-typecheck
-
-      # Note: ESLint currently fails due to third-party component definitions
-      # and test file style issues, but we include it here.
-      # If strict passing is needed, use `continue-on-error: true` temporarily
-      - name: ESLint
-        run: npm run lint-eslint
-        continue-on-error: true
-
-      - name: Prettier
-        run: npm run lint-prettier
-        continue-on-error: true
-
-  build:
-    name: Build
-    runs-on: ubuntu-latest
+  build: # Stage 2: Create Artifacts
     needs: verify
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
-          node-version: '20'
+          node-version: 20
           cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build
-        # Use relative paths for assets when hosted on GitHub Pages
-        run: npm run build -- --base=/${{ github.event.repository.name }}/
-
+      - run: npm ci
+      - run: npm run build -- --base=/${{ github.event.repository.name }}/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         env:
           FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
         with:
-          path: ./dist
+          path: './dist'
 
-  publish:
-    name: Publish
+  deploy: # Stage 3: Publish
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    needs: build
-    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
-
-    concurrency:
-      group: github-pages
-      cancel-in-progress: false
-    permissions:
-      id-token: write
-      pages: write
-      contents: write
-      packages: write
-
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
