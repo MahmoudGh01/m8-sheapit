@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
 import { ChevronDown, Sparkles } from 'lucide-react';
+import { useState, useMemo } from 'react';
 
 import { FilterControls } from '../components/FilterControls';
 import { MovieList } from '../components/MovieList';
@@ -31,7 +31,7 @@ export function Home(): React.JSX.Element {
   const favoriteCount = useMemo(() => getFavoriteCount(movies), [movies]);
 
   // Get featured movie (first favorite or first movie)
-  const featuredMovie = movies.find((m) => m.isFavorite) || movies[0];
+  const featuredMovie = movies.find((m) => m.isFavorite) ?? movies[0];
 
   return (
     <>
