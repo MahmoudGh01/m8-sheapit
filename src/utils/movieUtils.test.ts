@@ -1,12 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
+import { type Movie } from '../types/movie';
+
 import {
   filterMovies,
   sortMovies,
   getFavoriteCount,
   toggleFavorite,
 } from './movieUtils';
-import { type Movie } from '../types/movie';
 
 // Test data
 const mockMovies: Movie[] = [

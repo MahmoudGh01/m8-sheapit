@@ -1,6 +1,6 @@
+import { Heart, Film, TrendingUp } from 'lucide-react';
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Film, TrendingUp } from 'lucide-react';
 
 import { MovieList } from '../components/MovieList';
 import { SearchBar } from '../components/SearchBar';

@@ -1,8 +1,9 @@
-import { describe, it, vi } from 'vitest';
 import { render } from '@testing-library/react';
+import { describe, it, vi } from 'vitest';
+
+import { type Movie } from '../types/movie';
 
 import { MovieList } from './MovieList';
-import { type Movie } from '../types/movie';
 
 const mockMovies: Movie[] = [
   {

@@ -1,6 +1,6 @@
-import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { describe, it } from 'vitest';
 
 import { Layout } from './Layout';
 

@@ -2,7 +2,14 @@ import config from '@christopherjbaker/eslint-config/base-strict';
 
 export default [
   {
-    ignores: ['eslint.config.js'],
+    ignores: [
+      'eslint.config.js',
+      'postcss.config.js',
+      'vitest.config.ts',
+      'dist/**/*',
+      'src/components/ui/**/*',
+      'src/lib/utils.ts',
+    ],
   },
   ...config,
   {
@@ -16,6 +23,8 @@ export default [
           ignore: ['^/'],
         },
       ],
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/no-empty-function': 'off',
     },
   },
 ];

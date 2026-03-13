@@ -8,7 +8,7 @@ type FilterControlsProps = {
   onGenreChange: (genre: FilterGenre) => void;
 };
 
-const genres: { value: FilterGenre; label: string }[] = [
+const genres: Array<{ value: FilterGenre; label: string }> = [
   { value: 'all', label: 'All' },
   { value: 'action', label: 'Action' },
   { value: 'comedy', label: 'Comedy' },
@@ -17,7 +17,7 @@ const genres: { value: FilterGenre; label: string }[] = [
   { value: 'thriller', label: 'Thriller' },
 ];
 
-const sortOptions: { value: SortOption; label: string }[] = [
+const sortOptions: Array<{ value: SortOption; label: string }> = [
   { value: 'title', label: 'A-Z' },
   { value: 'year', label: 'Year' },
   { value: 'rating', label: 'Rating' },

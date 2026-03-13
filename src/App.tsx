@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import { MovieProvider } from './context/MovieContext';
 import { Layout } from './layouts/Layout';
-import { Home } from './pages/Home';
 import { Favorites } from './pages/Favorites';
+import { Home } from './pages/Home';
 
 function App(): React.JSX.Element {
   return (

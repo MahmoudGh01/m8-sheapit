@@ -1,9 +1,10 @@
-import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { describe, it, expect, vi } from 'vitest';
+
+import { type Movie } from '../types/movie';
 
 import { MovieCard } from './MovieCard';
-import { type Movie } from '../types/movie';
 
 const mockMovie: Movie = {
   id: 1,

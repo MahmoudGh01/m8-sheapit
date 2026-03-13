@@ -1,8 +1,9 @@
-import { describe, it } from 'vitest';
 import { render } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { describe, it } from 'vitest';
 
 import { MovieProvider } from '../context/MovieContext';
+
 import { Favorites } from './Favorites';
 
 describe('Favorites - SMOKE TEST', () => {

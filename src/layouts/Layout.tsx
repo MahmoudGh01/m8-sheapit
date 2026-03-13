@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
 import {
   Film,
   Heart,
@@ -10,6 +8,8 @@ import {
   Clock,
   Star,
 } from 'lucide-react';
+import { useState } from 'react';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 
 import { SearchBar } from '../components/SearchBar';
 
