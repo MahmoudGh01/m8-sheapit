@@ -1,0 +1,1 @@
+export { mockMovies } from './movies';
