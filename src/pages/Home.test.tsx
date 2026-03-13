@@ -1,45 +1,18 @@
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 
-import { MovieProvider } from '../context/MovieContext';
+import { renderWithProviders } from '../test/testUtils';
 
 import { Home } from './Home';
 
 describe('Home - SMOKE TEST', () => {
   it('should render without crashing', () => {
-    render(
-      <BrowserRouter>
-        <MovieProvider>
-          <Home />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    renderWithProviders(<Home />);
   });
 
   it('should render multiple times', () => {
-    const { rerender } = render(
-      <BrowserRouter>
-        <MovieProvider>
-          <Home />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    const { rerender } = renderWithProviders(<Home />);
 
-    rerender(
-      <BrowserRouter>
-        <MovieProvider>
-          <Home />
-        </MovieProvider>
-      </BrowserRouter>
-    );
-
-    rerender(
-      <BrowserRouter>
-        <MovieProvider>
-          <Home />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    rerender(<Home />);
+    rerender(<Home />);
   });
 });

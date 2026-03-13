@@ -1,45 +1,18 @@
-import { render } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import { describe, it } from 'vitest';
 
-import { MovieProvider } from '../context/MovieContext';
+import { renderWithProviders } from '../test/testUtils';
 
 import { Favorites } from './Favorites';
 
 describe('Favorites - SMOKE TEST', () => {
   it('should render without crashing', () => {
-    render(
-      <BrowserRouter>
-        <MovieProvider>
-          <Favorites />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    renderWithProviders(<Favorites />);
   });
 
   it('should render multiple times', () => {
-    const { rerender } = render(
-      <BrowserRouter>
-        <MovieProvider>
-          <Favorites />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    const { rerender } = renderWithProviders(<Favorites />);
 
-    rerender(
-      <BrowserRouter>
-        <MovieProvider>
-          <Favorites />
-        </MovieProvider>
-      </BrowserRouter>
-    );
-
-    rerender(
-      <BrowserRouter>
-        <MovieProvider>
-          <Favorites />
-        </MovieProvider>
-      </BrowserRouter>
-    );
+    rerender(<Favorites />);
+    rerender(<Favorites />);
   });
 });

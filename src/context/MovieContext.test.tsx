@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
+import { MovieProviderWrapper } from '../test/testUtils';
+
 import { MovieProvider, useMovies } from './MovieContext';
 
 function TestComponent(): React.JSX.Element {
@@ -16,17 +18,19 @@ function TestComponent(): React.JSX.Element {
 describe('MovieContext - SMOKE TEST', () => {
   it('should render provider without crashing', () => {
     render(
-      <MovieProvider>
-        <div>Test</div>
-      </MovieProvider>
+      <MovieProviderWrapper>
+        <MovieProvider>
+          <div>Test</div>
+        </MovieProvider>
+      </MovieProviderWrapper>
     );
   });
 
   it('should provide context to children', () => {
     render(
-      <MovieProvider>
+      <MovieProviderWrapper>
         <TestComponent />
-      </MovieProvider>
+      </MovieProviderWrapper>
     );
 
     expect(screen.getByTestId('movie-count')).toBeInTheDocument();
@@ -34,23 +38,23 @@ describe('MovieContext - SMOKE TEST', () => {
 
   it('should handle multiple children', () => {
     render(
-      <MovieProvider>
+      <MovieProviderWrapper>
         <div>Child 1</div>
         <div>Child 2</div>
         <div>Child 3</div>
-      </MovieProvider>
+      </MovieProviderWrapper>
     );
   });
 
   it('should render with nested components', () => {
     render(
-      <MovieProvider>
+      <MovieProviderWrapper>
         <div>
           <div>
             <TestComponent />
           </div>
         </div>
-      </MovieProvider>
+      </MovieProviderWrapper>
     );
   });
 });
