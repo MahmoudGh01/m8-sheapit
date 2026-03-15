@@ -1,4 +1,8 @@
-import { type SortOption, type FilterGenre } from '../../types';
+import { SlidersHorizontal } from 'lucide-react';
+
+import { Button } from '@/shared/components/ui/button';
+
+import { type FilterGenre, type SortOption } from '../../types';
 
 type FilterControlsProps = {
   sortBy: SortOption;
@@ -30,43 +34,51 @@ export function FilterControls({
   onGenreChange,
 }: FilterControlsProps): React.JSX.Element {
   return (
-    <div className="flex flex-wrap items-center gap-6">
+    <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+      {/* Filter Icon */}
+      <div className="flex items-center gap-1.5 sm:gap-2 text-primary">
+        <SlidersHorizontal className="size-3.5 sm:size-4" />
+        <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest hidden sm:inline">
+          // Filters
+        </span>
+      </div>
+
+      {/* Divider */}
+      <div className="w-0.5 h-5 sm:h-6 bg-primary hidden sm:block" />
+
       {/* Genre Filters */}
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-400 font-medium mr-2">Genre:</span>
+      <div className="flex items-center gap-1 flex-wrap">
         {genres.map((g) => (
-          <button
+          <Button
             key={g.value}
+            variant={genre === g.value ? 'default' : 'outline'}
+            size="xs"
             onClick={() => onGenreChange(g.value)}
-            className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-              genre === g.value
-                ? 'bg-red-600 text-white shadow-lg shadow-red-600/30'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
+            className="text-[10px] sm:text-xs px-1.5 sm:px-2 h-6 sm:h-7"
           >
             {g.label}
-          </button>
+          </Button>
         ))}
       </div>
 
       {/* Divider */}
-      <div className="w-px h-10 bg-gray-700"></div>
+      <div className="w-0.5 h-5 sm:h-6 bg-accent hidden lg:block" />
 
       {/* Sort Options */}
-      <div className="flex items-center gap-3">
-        <span className="text-sm text-gray-400 font-medium mr-2">Sort:</span>
+      <div className="flex items-center gap-1">
+        <span className="text-[10px] sm:text-xs text-accent uppercase tracking-widest mr-0.5 sm:mr-1 hidden lg:inline">
+          Sort:
+        </span>
         {sortOptions.map((s) => (
-          <button
+          <Button
             key={s.value}
+            variant={sortBy === s.value ? 'accent' : 'ghost'}
+            size="xs"
             onClick={() => onSortChange(s.value)}
-            className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
-              sortBy === s.value
-                ? 'bg-white text-black shadow-lg'
-                : 'bg-gray-800 text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
+            className="text-[10px] sm:text-xs px-1.5 sm:px-2 h-6 sm:h-7"
           >
             {s.label}
-          </button>
+          </Button>
         ))}
       </div>
     </div>

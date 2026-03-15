@@ -1,5 +1,6 @@
 import { Search, X } from 'lucide-react';
 
+import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 
 type SearchBarProps = {
@@ -12,22 +13,27 @@ export function SearchBar({
   onSearchChange,
 }: SearchBarProps): React.JSX.Element {
   return (
-    <div className="relative max-w-3xl">
-      <Search className="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+    <div className="relative w-full sm:max-w-md lg:max-w-xl">
+      <div className="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 text-primary">
+        <Search className="size-3.5 sm:size-4" />
+      </div>
       <Input
         type="text"
-        placeholder="Search titles, genres, actors..."
+        placeholder="> Search movies..."
         value={searchTerm}
         onChange={(e) => onSearchChange(e.target.value)}
-        className="w-full h-16 pl-14 pr-14 bg-black/50 backdrop-blur-xl border-2 border-gray-700 text-white placeholder:text-gray-500 focus:border-red-600 focus:ring-2 focus:ring-red-600/20 text-base rounded-xl transition-all"
+        variant="neon"
+        className="w-full h-9 sm:h-11 pl-8 sm:pl-10 pr-8 sm:pr-10 text-xs sm:text-sm"
       />
       {searchTerm && (
-        <button
+        <Button
+          variant="ghost"
+          size="icon-xs"
           onClick={() => onSearchChange('')}
-          className="absolute right-5 top-1/2 -translate-y-1/2 p-2 hover:bg-gray-700 rounded-full transition"
+          className="absolute right-1.5 sm:right-2 top-1/2 -translate-y-1/2"
         >
-          <X className="w-5 h-5 text-gray-400" />
-        </button>
+          <X className="size-3.5 sm:size-4" />
+        </Button>
       )}
     </div>
   );

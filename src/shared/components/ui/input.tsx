@@ -2,17 +2,31 @@ import * as React from 'react';
 
 import { cn } from '../../lib/utils';
 
+type InputProps = React.ComponentProps<'input'> & {
+  variant?: 'default' | 'terminal' | 'neon';
+};
+
 function Input({
   className,
   type,
+  variant = 'default',
   ...props
-}: React.ComponentProps<'input'>): React.JSX.Element {
+}: InputProps): React.JSX.Element {
   return (
     <input
       type={type}
       data-slot="input"
+      data-variant={variant}
       className={cn(
-        'h-8 w-full min-w-0 rounded-lg border border-input bg-transparent px-2.5 py-1 text-base transition-colors outline-none file:inline-flex file:h-6 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:bg-input/50 disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:disabled:bg-input/80 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40',
+        'flex h-10 w-full px-3 py-2 text-xs uppercase tracking-wide transition-all duration-200 outline-none placeholder:text-muted-foreground/70 placeholder:uppercase disabled:cursor-not-allowed disabled:opacity-50 font-mono',
+        {
+          'bg-input border-2 border-border focus:border-primary focus:shadow-[0_0_10px_var(--primary)]':
+            variant === 'default',
+          'bg-background border-2 border-success text-success focus:shadow-[0_0_10px_var(--success)]':
+            variant === 'terminal',
+          'bg-transparent border-2 border-primary text-primary focus:shadow-[0_0_15px_var(--primary),inset_0_0_10px_var(--primary)]':
+            variant === 'neon',
+        },
         className
       )}
       {...props}
@@ -21,3 +35,4 @@ function Input({
 }
 
 export { Input };
+export type { InputProps };

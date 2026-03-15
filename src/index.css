@@ -5,138 +5,152 @@
 
 @custom-variant dark (&:is(.dark *));
 
-* {
+/* Retro CSS Reset */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  font-family:
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    Helvetica,
-    Arial,
-    sans-serif;
-  line-height: 1.5;
+  /* Retro Typography - Monospace/Pixel feel */
+  font-family: 'Geist Variable', 'Courier New', Courier, monospace;
+  line-height: 1.6;
   font-weight: 400;
-
-  color-scheme: dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #141414;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Retro Dark Theme - CRT Monitor / Arcade vibes */
+  color-scheme: dark;
+
+  /* Core Colors - Deep purple/black with neon accents */
+  --background: oklch(0.12 0.03 280);
+  --foreground: oklch(0.95 0.02 85);
+
+  /* Surface Colors - Darker purples */
+  --card: oklch(0.15 0.04 280);
+  --card-foreground: oklch(0.95 0.02 85);
+  --popover: oklch(0.18 0.04 280);
+  --popover-foreground: oklch(0.95 0.02 85);
+
+  /* Primary - Neon Pink/Magenta */
+  --primary: oklch(0.7 0.25 330);
+  --primary-foreground: oklch(0.12 0.03 280);
+
+  /* Secondary - Retro teal */
+  --secondary: oklch(0.25 0.05 280);
+  --secondary-foreground: oklch(0.9 0.02 85);
+
+  /* Muted - Dusty purple */
+  --muted: oklch(0.22 0.04 280);
+  --muted-foreground: oklch(0.65 0.03 280);
+
+  /* Accent - Neon Cyan */
+  --accent: oklch(0.8 0.2 195);
+  --accent-foreground: oklch(0.12 0.03 280);
+
+  /* Success - Retro Green (terminal green) */
+  --success: oklch(0.75 0.25 145);
+  --success-foreground: oklch(0.12 0.03 280);
+
+  /* Warning - Retro Orange/Amber */
+  --warning: oklch(0.8 0.18 65);
+  --warning-foreground: oklch(0.12 0.03 280);
+
+  /* Destructive - Neon Red */
+  --destructive: oklch(0.65 0.25 25);
+  --destructive-foreground: oklch(0.95 0.02 85);
+
+  /* Borders & Inputs - Visible retro borders */
+  --border: oklch(0.4 0.1 330);
+  --input: oklch(0.2 0.04 280);
+  --ring: oklch(0.7 0.25 330);
+
+  /* Charts - Neon palette */
+  --chart-1: oklch(0.7 0.25 330);
+  --chart-2: oklch(0.8 0.2 195);
+  --chart-3: oklch(0.75 0.25 145);
+  --chart-4: oklch(0.8 0.18 65);
+  --chart-5: oklch(0.65 0.25 25);
+
+  /* Radius - Sharp/Pixelated corners */
+  --radius: 0.25rem;
+
+  /* Sidebar */
+  --sidebar: oklch(0.14 0.04 280);
+  --sidebar-foreground: oklch(0.95 0.02 85);
+  --sidebar-primary: oklch(0.7 0.25 330);
+  --sidebar-primary-foreground: oklch(0.12 0.03 280);
+  --sidebar-accent: oklch(0.25 0.05 280);
+  --sidebar-accent-foreground: oklch(0.9 0.02 85);
+  --sidebar-border: oklch(0.4 0.1 330);
+  --sidebar-ring: oklch(0.7 0.25 330);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  margin: 0;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: oklch(0.12 0.03 280);
+  color: oklch(0.95 0.02 85);
+  /* CRT scanline effect */
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
 }
 
 #root {
   width: 100%;
+  min-height: 100dvh;
 }
 
-button {
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-button:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-input,
-select {
-  font-family: inherit;
-}
-
-input:focus,
-select:focus {
-  outline: 2px solid #646cff;
+/* Retro Focus States - Neon glow */
+:focus-visible {
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
+  box-shadow: 0 0 10px var(--ring);
 }
 
-.dark {
-  --background: 0 0% 8%;
-  --foreground: 0 0% 98%;
-  --card: 0 0% 10%;
-  --card-foreground: 0 0% 98%;
-  --popover: 0 0% 10%;
-  --popover-foreground: 0 0% 98%;
-  --primary: 0 72% 51%;
-  --primary-foreground: 0 0% 98%;
-  --secondary: 0 0% 15%;
-  --secondary-foreground: 0 0% 98%;
-  --muted: 0 0% 15%;
-  --muted-foreground: 0 0% 64%;
-  --accent: 0 0% 20%;
-  --accent-foreground: 0 0% 98%;
-  --destructive: 0 72% 51%;
-  --border: 0 0% 20%;
-  --input: 0 0% 20%;
-  --ring: 0 72% 51%;
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: 0 0% 10%;
-  --sidebar-foreground: 0 0% 98%;
-  --sidebar-primary: 0 72% 51%;
-  --sidebar-primary-foreground: 0 0% 98%;
-  --sidebar-accent: 0 0% 15%;
-  --sidebar-accent-foreground: 0 0% 98%;
-  --sidebar-border: 0 0% 20%;
-  --sidebar-ring: 0 72% 51%;
+/* Selection Styling */
+::selection {
+  background-color: oklch(0.7 0.25 330 / 0.4);
+  color: oklch(0.95 0.02 85);
 }
 
+/* Retro Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.15 0.04 280);
+  border: 2px solid oklch(0.4 0.1 330);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.7 0.25 330);
+  border: 2px solid oklch(0.4 0.1 330);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.8 0.2 195);
+}
+
+/* Tailwind Theme Integration */
 @theme inline {
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: 'Geist Variable', 'Courier New', monospace;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -154,6 +168,11 @@ select:focus {
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -168,13 +187,13 @@ select:focus {
   --color-card: var(--card);
   --color-foreground: var(--foreground);
   --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.5);
+  --radius-4xl: calc(var(--radius) * 3);
 }
 
 @layer base {
@@ -186,5 +205,125 @@ select:focus {
   }
   html {
     @apply font-sans;
+  }
+}
+
+/* Retro Utility Classes */
+@layer utilities {
+  /* Pixel border effect */
+  .pixel-border {
+    @apply border-2 border-primary;
+    box-shadow:
+      4px 4px 0 0 var(--primary),
+      -1px -1px 0 0 var(--primary);
+  }
+
+  /* Neon glow effect */
+  .neon-glow {
+    text-shadow:
+      0 0 5px var(--primary),
+      0 0 10px var(--primary),
+      0 0 20px var(--primary);
+  }
+
+  .neon-glow-cyan {
+    text-shadow:
+      0 0 5px var(--accent),
+      0 0 10px var(--accent),
+      0 0 20px var(--accent);
+  }
+
+  .neon-box {
+    box-shadow:
+      0 0 5px var(--primary),
+      0 0 10px var(--primary),
+      inset 0 0 5px var(--primary);
+  }
+
+  .neon-box-cyan {
+    box-shadow:
+      0 0 5px var(--accent),
+      0 0 10px var(--accent),
+      inset 0 0 5px var(--accent);
+  }
+
+  /* Retro gradient */
+  .retro-gradient {
+    @apply bg-gradient-to-r from-primary via-accent to-success;
+  }
+
+  .retro-text {
+    @apply bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent;
+  }
+
+  /* Container padding - responsive horizontal padding */
+  .container-padding {
+    @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16;
+  }
+
+  /* Max width container */
+  .container-max {
+    @apply w-full max-w-7xl mx-auto;
+  }
+
+  /* Section vertical spacing - responsive */
+  .section-padding {
+    @apply py-8 sm:py-10 md:py-12 lg:py-16;
+  }
+
+  .section-padding-lg {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  /* Gap utilities for responsive spacing */
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 md:gap-8;
+  }
+
+  .gap-responsive-sm {
+    @apply gap-2 sm:gap-3 md:gap-4;
+  }
+
+  /* VHS tracking effect */
+  .vhs-effect {
+    animation: vhs-tracking 0.5s infinite;
+  }
+
+  @keyframes vhs-tracking {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+    25% {
+      transform: translateX(-1px);
+    }
+    75% {
+      transform: translateX(1px);
+    }
+  }
+
+  /* Blink animation for retro cursor effect */
+  .blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 }
